@@ -1,42 +1,82 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Exercise 03: JavaScript Objects, Arrays, and Functions</title>
-    <script>
-      // TASK #2: Implement the letterHistogram function
-      function letterHistogram(str) {
-        
-        // Replace the line below with your implementation.
-        throw new Error('Not implemented');
-      }
 
-      // TASK #3: Implement the wordFrequencyCounter function
-      function wordFrequencyCounter(sentence) {
-        
-        // Replace the line below with your implementation.
-        throw new Error('Not implemented');
+<head>
+  <title>Exercise 03: JavaScript Objects, Arrays, and Functions</title>
+  <script>
+    // TASK #2: Implement the letterHistogram function
+    function letterHistogram(str) {
+      let dict = {};
+      let normalized = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+      for (let i = 0; i < normalized.length; i++) {
+        if (normalized[i] in dict) {
+          dict[normalized[i]] += 1;
+        } else {
+          dict[normalized[i]] = 1
+        }
       }
+      return dict;
+    }
 
-      // TASK #4: Implement the analyzeObject function
-      function analyzeObject(obj) {
-        
-        // Replace the line below with your implementation.
-        throw new Error('Not implemented');
+    // TASK #3: Implement the wordFrequencyCounter function
+    function wordFrequencyCounter(sentence) {
+      let normalized = sentence.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+      let words = normalized.split(" ");
+      let dict = {};
+      for (let i = 0; i < words.length; i++) {
+        if (words[i] in dict) {
+          dict[words[i]] += 1;
+        } else {
+          dict[words[i]] = 1;
+        }
       }
-    </script>
-  </head>
-  <body>
-    <h1 id="main-header">
-      Exercise 03: JavaScript Objects, Arrays, and Functions
-    </h1>
-    <p class="description">
-      You should not see much here (except for this). The reason is that we are
-      only concerned with running JavaScript in the browser at the moment and
-      not so much about rendering anything in the browser window. However, if
-      you open the
-      <a href="https://developer.chrome.com/docs/devtools/open"
-        >developer console</a
-      >, you should see any output that you might write to test your functions.
-    </p>
-  </body>
+      return dict;
+    }
+
+    // TASK #4: Implement the analyzeObject function
+    const inputObject = {
+      name: "John",
+      age: 30,
+      hobbies: ["reading", "games", "coding"],
+      education: { degree: "Bachelor", field: "Computer Science" }
+    };
+
+    function analyzeObject(obj) {
+      let keys = Object.keys(obj);
+      let values = Object.values(obj);
+      let valueTypesDict = {};
+      for (let i = 0; i < keys.length; i++) {
+        key = keys[i];
+        type = typeof obj[key]
+        if (type in valueTypesDict) {
+          valueTypesDict[type] += 1;
+        } else {
+          valueTypesDict[type] = 1;
+        }
+      }
+      let res = {
+        totalKeys: keys.length,
+        totalValues: values.length,
+        keyNames: keys,
+        valueTypes: valueTypesDict
+      };
+      return res;
+    }
+  </script>
+</head>
+
+<body>
+  <h1 id="main-header">
+    Exercise 03: JavaScript Objects, Arrays, and Functions
+  </h1>
+  <p class="description">
+    You should not see much here (except for this). The reason is that we are
+    only concerned with running JavaScript in the browser at the moment and
+    not so much about rendering anything in the browser window. However, if
+    you open the
+    <a href="https://developer.chrome.com/docs/devtools/open">developer console</a>, you should see any output that you
+    might write to test your functions.
+  </p>
+</body>
+
 </html>
