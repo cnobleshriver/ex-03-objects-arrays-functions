@@ -7,7 +7,7 @@
     // TASK #2: Implement the letterHistogram function
     function letterHistogram(str) {
       let dict = {};
-      let normalized = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+      let normalized = str.toLowerCase().replace(/[^a-z]/g, '');
       for (let i = 0; i < normalized.length; i++) {
         if (normalized[i] in dict) {
           dict[normalized[i]] += 1;
@@ -20,8 +20,11 @@
 
     // TASK #3: Implement the wordFrequencyCounter function
     function wordFrequencyCounter(sentence) {
-      let normalized = sentence.toLowerCase().replace(/[^a-z0-9\s]/g, '');
-      let words = normalized.split(" ");
+      if (sentence.length === 0) {
+        return {};
+      }
+      let normalized = sentence.toLowerCase().replace(/[^a-z\s]/g, '');
+      let words = normalized.split(/\s+/);
       let dict = {};
       for (let i = 0; i < words.length; i++) {
         if (words[i] in dict) {
@@ -34,13 +37,6 @@
     }
 
     // TASK #4: Implement the analyzeObject function
-    const inputObject = {
-      name: "John",
-      age: 30,
-      hobbies: ["reading", "games", "coding"],
-      education: { degree: "Bachelor", field: "Computer Science" }
-    };
-
     function analyzeObject(obj) {
       let keys = Object.keys(obj);
       let values = Object.values(obj);
@@ -48,6 +44,9 @@
       for (let i = 0; i < keys.length; i++) {
         key = keys[i];
         type = typeof obj[key]
+        if (Array.isArray(obj[key])){
+          type = 'array';
+        }
         if (type in valueTypesDict) {
           valueTypesDict[type] += 1;
         } else {
